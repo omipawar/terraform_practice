@@ -34,18 +34,24 @@ resource "aws_security_group" "tf-sg" {
 }
 
 resource "aws_instance" "tf-instance" {
+#   count = 2
+  for_each = tomap({
+    instance_1 = "t3.micro"
+    instance_2 = "t3.small"
+  })
   ami = var.ami_id
   key_name = var.key_pair
-  instance_type = var.instance_type
+#   instance_type = var.instance_type
+  instance_type = each.value
   vpc_security_group_ids = [aws_security_group.tf-sg.id]
   user_data = file("nginx.sh")
 
   root_block_device {
-    volume_size = 10
+    volume_size = var.env == "prd" ? 20 : 10
     volume_type = "gp3"
   }
 
   tags = {
-    Name = "nginx-server"
+    Name = each.key
   }
 }
