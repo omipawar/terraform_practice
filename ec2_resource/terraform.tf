@@ -7,10 +7,10 @@ terraform {
   }
   
   backend "s3"{
-    bucket = "omipawar-tf-state-bucket"
+    bucket = "<bucket name>"
     key = "terraform.tfstate"
     region = "ap-south-1"
-    dynamodb_table = "tf-state-table"
+    dynamodb_table = "<dynamo db table name>"
   }
 
 }
