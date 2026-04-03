@@ -1,0 +1,17 @@
+# Terraform state files
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+
+# Lock file (optional to ignore or keep depending on team)
+.terraform.lock.hcl
+
+# Terraform directories
+.terraform/
+
+# Plan files (optional)
+*.tfplan
+
+# Sensitive variables
+*.tfvars
