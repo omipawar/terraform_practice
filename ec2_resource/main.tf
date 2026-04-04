@@ -3,7 +3,7 @@ data "aws_vpc" "default" {
 }
 
 resource "aws_security_group" "tf-sg" {
-  name        = "allow_ssh_and_http"
+  name        = "${var.env}-allow_ssh_and_http"
   description = "Allow all http and ssh connections"
   vpc_id      = data.aws_vpc.default.id
 
@@ -29,7 +29,8 @@ resource "aws_security_group" "tf-sg" {
   }
 
   tags = {
-    Name = "http-ssh"
+    Name        = "http-ssh"
+    Environment = var.env
   }
 }
 
@@ -47,12 +48,13 @@ resource "aws_instance" "tf-instance" {
   user_data              = file("nginx.sh")
 
   root_block_device {
-    volume_size = var.env == "prod" ? 20 : 10
+    volume_size = var.env == "prod" ? 10 : 8
     volume_type = "gp3"
   }
 
   tags = {
     #    Name = each.key
-    Name = "my-instance"
+    Name        = "${var.env}-my-instance"
+    Environment = var.env
   }
 }
