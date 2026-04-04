@@ -2,5 +2,5 @@
 
 ### Refer to setup AWS CLI and Terraform
 ```bash
-https://github.com/omipawar/terraform_practice
+https://github.com/omipawar/setup_scripts
 ```
